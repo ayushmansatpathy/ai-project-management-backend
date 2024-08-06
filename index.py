@@ -1,10 +1,19 @@
 import json
+import os
+from dotenv import load_dotenv
 from openai import OpenAI
 
+load_dotenv()
+
+org = os.getenv("ORGANIZATION")
+project = os.getenv("PROJECT")
+api = os.getenv("API_KEY")
+
+
 client = OpenAI(
-    organization="org-2yWY8HQkesMsydYhdaKfzfFa",
-    project="proj_RWeZEDRw2TxW8NAZ3uI43nPq",
-    api_key="sk-None-djxg6tA8OyEhRNDcZVe9T3BlbkFJrLvaCTV4rbIcDeteSJQh",
+    organization=org,
+    project=project,
+    api_key=api,
 )
 
 system_role = {
@@ -153,17 +162,18 @@ system_role = {
 
 prompt = input("prompt: ")
 
-response = client.chat.completions.create(
-    model="gpt-4o-mini", messages=[system_role, {"role": "user", "content": prompt}]
-)
 
+def return_json(prompt):
+    response = client.chat.completions.create(
+        model="gpt-4o-mini", messages=[system_role, {"role": "user", "content": prompt}]
+    )
 
-json_str = response.choices[0].message.content
-if json_str[0] != "{":
-    print(json_str)
-else:
-    data = json.loads(json_str)
-    print(data)
+    json_str = response.choices[0].message.content
+    if json_str[0] != "{":
+        return json_str
+    else:
+        data = json.loads(json_str)
+        return data
 
 
 # {
