@@ -159,7 +159,11 @@ response = client.chat.completions.create(
 
 
 json_str = response.choices[0].message.content
-data = json.loads(json_str)
+if json_str[0] != "{":
+    print(json_str)
+else:
+    data = json.loads(json_str)
+    print(data)
 
 
 # {
