@@ -160,8 +160,6 @@ system_role = {
       """,
 }
 
-prompt = input("prompt: ")
-
 
 def return_json(prompt):
     response = client.chat.completions.create(

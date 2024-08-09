@@ -10,9 +10,9 @@ def hello_world():
 
 
 @app.route("/response", methods=["GET"])
-def response(prompt):
+def response():
     try:
-        prompt = request.json["data"]
+        prompt = request.json["prompt"]
         result = return_json(prompt)  # Call the function from index.py
         return jsonify({"result": result})
     except Exception as e:
