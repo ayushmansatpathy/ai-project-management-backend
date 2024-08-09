@@ -9,7 +9,7 @@ def hello_world():
     return "<p>Hello, World!</p>"
 
 
-@app.route("/response", methods=["GET"])
+@app.route("/response", methods=["POST"])
 def response():
     try:
         prompt = request.json["prompt"]
